@@ -2,7 +2,7 @@ name: Build
 on:
   push:
     branches:
-      - main
+      - master
   pull_request:
     types: [opened, synchronize, reopened]
 jobs:
@@ -18,8 +18,10 @@ jobs:
         with:
           python-version: '3.7'
       - name: Instalación de librerías y dependencias
-        run: |
-          python -m pip install --upgrade pip
+        run: yarn
+      - name: pruebas+coverage
+        id: pruebas
+        run: yarn jest --coverage
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
